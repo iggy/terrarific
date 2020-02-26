@@ -26,10 +26,10 @@ jobs:
           github.com/golangci/golangci-lint/cmd/golangci-lint \
         	github.com/fzipp/gocyclo
     - name: go test
-      run: go test ./cmd/gocate
+      run: go test .
 
     - name: gocyclo
-      run: gocyclo ./cmd/gocate
+      run: gocyclo .
 
     - name: golangci-lint
-      run: golangci-lint run ./cmd/gocate
+      run: golangci-lint run .
