@@ -22,9 +22,9 @@ jobs:
       run: |
         go get -v -t -d ./...
         go get -v -t -u golang.org/x/lint/golint \
-        	honnef.co/go/tools/cmd/staticcheck \
+          honnef.co/go/tools/cmd/staticcheck \
           github.com/golangci/golangci-lint/cmd/golangci-lint \
-        	github.com/fzipp/gocyclo
+          github.com/fzipp/gocyclo
     - name: go test
       run: go test .
 
