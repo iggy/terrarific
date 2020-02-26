@@ -11,9 +11,10 @@ import (
 	tfe "github.com/hashicorp/go-tfe"
 )
 
-func workspaceCreate() {
-  log.Println("workspaceCreate")
-}
+// for future use
+// func workspaceCreate() {
+//   log.Println("workspaceCreate")
+// }
 
 // the terraform cloud organization and workspace we want to add/make changes to
 var organization = flag.String("org", "", "The terraform cloud organization to use.")
@@ -49,6 +50,7 @@ func main() {
 		if err != nil {
 			log.Fatal("failed creating workspace: ", err)
 		}
+		log.Print(w)
 
 	} else {
 		log.Print("workspace already exists. Updating attrs if necessary")
@@ -62,5 +64,6 @@ func main() {
 		if err != nil {
 			log.Fatal("failed updating workspace attrs (AutoApply|TerraformVersion): ", err)
 		}
+		log.Print(w)
 	}
 }
