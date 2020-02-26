@@ -129,7 +129,7 @@ func main() {
 				log.Printf("li: %v | %v\n", li, varList.Items[li])
 				if varList.Items[li].Key == key {
 					foundEnvInVarList = true
-					if varList.Items[li].Value != value || varList.Items[li].Sensitive != true {
+					if varList.Items[li].Value != value || !varList.Items[li].Sensitive {
 						// key exists, but value/Sensitive doesn't match, update it
 						vu, err := client.Variables.Update(ctx, w.ID, varList.Items[li].ID, tfe.VariableUpdateOptions{
 							Key:         &key,
@@ -143,7 +143,7 @@ func main() {
 					}
 				}
 			}
-			if foundEnvInVarList == false {
+			if !foundEnvInVarList {
 				// we never found the env var in the list from tf cloud, create it
 				v, err := client.Variables.Create(ctx, w.ID, tfe.VariableCreateOptions{
 					Key:         &key,
