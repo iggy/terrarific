@@ -28,8 +28,5 @@ jobs:
     - name: go test
       run: go test .
 
-    - name: gocyclo
-      run: gocyclo .
-
     - name: golangci-lint
       run: golangci-lint run .
