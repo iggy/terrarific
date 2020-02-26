@@ -7,11 +7,6 @@ jobs:
     name: Test on push
     runs-on: ubuntu-latest
     steps:
-    - name: setup env
-      shell: bash
-      run: |
-        echo "::set-env name=GOPATH::${{ github.workspace }}/go"
-        echo "::add-path::${{ github.workspace }}/go/bin"
 
     - name: Set up Go 1.14
       uses: actions/setup-go@v1
@@ -25,6 +20,7 @@ jobs:
     - name: Get test dependencies
       id: get-test-deps
       run: |
+        export PATH=$PATH:$(go env GOPATH)/bin
         go get -v -t -d ./...
         go get -v -t -u golang.org/x/lint/golint \
           honnef.co/go/tools/cmd/staticcheck \
