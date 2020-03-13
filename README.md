@@ -14,3 +14,6 @@ Usage of terrarific:
   -workspace string
       The workspace name.
 ```
+
+# Disclaimer
+I work for Pluto TV (part of ViacomCBS), but I wrote this on my own time.
