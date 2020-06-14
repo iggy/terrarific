@@ -1,5 +1,6 @@
+---
 name: Build-Release
-on:
+'on':
   push:
     tags:
       - v*
@@ -11,42 +12,44 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: Set up Go 1.14
-      uses: actions/setup-go@v1
-      with:
-        go-version: 1.14
-      id: go
+      - name: Set up Go 1.14
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.14
 
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v1
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
 
-    - name: Get build-release dependencies
-      run: |
-        go get -v -t -d ./...
-    - name: Build
-      run: go build -o /tmp/terrarific -v .
+      - name: Get build-release dependencies
+        run: |
+          go get -v -t ./...
+      - name: Build
+        run: go build -o /tmp/terrarific -v .
 
-    - name: Build info
-      run: |
-        file /tmp/terrarific
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1.0.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: false
-        prerelease: false
+      - name: Build info
+        run: |
+          file /tmp/terrarific
 
-    - name: Release terrarific
-      id: release
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: /tmp/terrarific
-        asset_name: terrarific
-        asset_content_type: application/octet-stream
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # This pulls from the CREATE RELEASE step above, referencing it's ID
+          # to get its outputs object, which include a `upload_url`. See this
+          # blog post for more info:
+          # https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: /tmp/terrarific
+          asset_name: terrarific
+          asset_content_type: application/octet-stream
