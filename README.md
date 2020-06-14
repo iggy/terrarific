@@ -1,7 +1,7 @@
 # terrarific
 terraform cloud (nee enterprise) cli written in golang
 
-![Test](https://github.com/Pluto-tv/terrarific/workflows/Test/badge.svg?branch=master)
+![Test](https://github.com/iggy/terrarific/workflows/Test/badge.svg?branch=master)
 
 # TODO
 * Add functionality to cover the rest of the terraform cloud API
