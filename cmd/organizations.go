@@ -19,10 +19,20 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-package main
+package cmd
 
-import "github.com/iggy/terrarific/cmd"
+import (
+	"github.com/spf13/cobra"
+)
 
-func main() {
-	cmd.Execute()
+// organizationsCmd represents the organizations command
+var organizationsCmd = &cobra.Command{
+	Use:   "organizations",
+	Short: "Work with organizations",
+	Long: `Parent command for manipulating organizations. This doesn't do anything by itself. 
+Everything is done via subcommands.`,
+}
+
+func init() {
+	rootCmd.AddCommand(organizationsCmd)
 }

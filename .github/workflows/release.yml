@@ -24,11 +24,15 @@ jobs:
         run: |
           go get -v -t ./...
       - name: Build
-        run: go build -o /tmp/terrarific -v .
+        env:
+          CGO_ENABLED: 0
+        run: |
+          go build .
+          upx terrarific
 
       - name: Build info
         run: |
-          file /tmp/terrarific
+          file terrarific
 
       - name: Create Release
         uses: actions/create-release@v1
@@ -50,6 +54,6 @@ jobs:
           # blog post for more info:
           # https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: /tmp/terrarific
+          asset_path: terrarific
           asset_name: terrarific
           asset_content_type: application/octet-stream

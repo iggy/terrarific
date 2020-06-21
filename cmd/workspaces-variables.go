@@ -19,10 +19,20 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-package main
+package cmd
 
-import "github.com/iggy/terrarific/cmd"
+import (
+	"github.com/spf13/cobra"
+)
 
-func main() {
-	cmd.Execute()
+// workspacesVariablesCmd represents the variables command
+var workspacesVariablesCmd = &cobra.Command{
+	Use:   "variables",
+	Short: "Work with workspace variables",
+	Long: `Parent command for manipulating workspace variables. This doesn't do anything by itself. 
+	Everything is done via subcommands.`,
+}
+
+func init() {
+	workspacesCmd.AddCommand(workspacesVariablesCmd)
 }

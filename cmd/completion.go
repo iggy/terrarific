@@ -19,10 +19,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-package main
+package cmd
 
-import "github.com/iggy/terrarific/cmd"
+import (
+	"github.com/spf13/cobra"
+)
 
-func main() {
-	cmd.Execute()
+// completionCmd represents the completion command
+var completionCmd = &cobra.Command{
+	Use:   "completion",
+	Short: "Generate shell completion code",
+	Long:  `Output (to stdout) shell completion for the specified shell`,
+}
+
+func init() {
+	rootCmd.AddCommand(completionCmd)
 }

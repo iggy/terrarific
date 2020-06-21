@@ -19,10 +19,24 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-package main
+package cmd
 
-import "github.com/iggy/terrarific/cmd"
+import (
+	"fmt"
 
-func main() {
-	cmd.Execute()
+	"github.com/spf13/cobra"
+)
+
+// workspacesCreateCmd represents the workspacesCreate command
+var workspacesCreateCmd = &cobra.Command{
+	Use:   "create <organization> <workspace>",
+	Short: "Create a new workspace",
+	Long:  `Create a workspace and set it up according to requested arguments`,
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println("workspacesCreate called")
+	},
+}
+
+func init() {
+	workspacesCmd.AddCommand(workspacesCreateCmd)
 }

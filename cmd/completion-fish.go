@@ -19,10 +19,28 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-package main
+package cmd
 
-import "github.com/iggy/terrarific/cmd"
+import (
+	"log"
+	"os"
 
-func main() {
-	cmd.Execute()
+	"github.com/spf13/cobra"
+)
+
+// completionFishCmd represents the fish command
+var completionFishCmd = &cobra.Command{
+	Use:   "fish",
+	Short: "Generate fish shell completion code",
+	Long:  `Output (to stdout) shell completion for the fish shell`,
+	Run: func(cmd *cobra.Command, args []string) {
+		err := rootCmd.GenFishCompletion(os.Stdout, true)
+		if err != nil {
+			log.Fatalln("failed to generate fish completion", err)
+		}
+	},
+}
+
+func init() {
+	completionCmd.AddCommand(completionFishCmd)
 }
