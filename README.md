@@ -34,6 +34,16 @@ Flags:
 Use "terrarific [command] --help" for more information about a command.
 ```
 
+## Releasing
+
+To create a new release, all you have to do is push a tag (no need to create a separate GH
+release). CI will do that for you.
+
+```shell
+git tag -a v0.0.4
+git push origin --tags
+```
+
 ## Disclaimer
 
 I work for Pluto TV (part of ViacomCBS), but I wrote this on my own time.
