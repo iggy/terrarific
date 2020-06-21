@@ -14,7 +14,7 @@ terraform cloud (nee enterprise) cli written in golang
 ## Usage
 
 ```text
-List, create, update, delete, etc different things (organizations, workspaces, 
+List, create, update, delete, etc different things (organizations, workspaces,
 variables, etc) in terraform cloud
 
 Usage:
