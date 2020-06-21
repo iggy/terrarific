@@ -3,6 +3,14 @@ name: Test
 'on': [push]
 
 jobs:
+  super-lint:
+    name: GitHub Super Linter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Super Linter
+        # This makes it pull from github's docker repo according to a note in the README.md
+        uses: docker://github/super-linter:v2.1.0
 
   golangci-lint:
     name: golangci-lint on push
