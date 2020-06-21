@@ -28,6 +28,7 @@ jobs:
           CGO_ENABLED: 0
         run: |
           go build .
+          upx terrarific
 
       - name: Build info
         run: |
