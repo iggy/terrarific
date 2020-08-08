@@ -1,5 +1,5 @@
 ---
-name: Test
+name: Tests
 'on': [push]
 
 jobs:
@@ -9,8 +9,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Super Linter
-        # This makes it pull from github's docker repo according to a note in the README.md
-        uses: docker://github/super-linter:v2.1.0
+        # This makes it pull from github's docker repo according to a note in
+        # the README.md
+        uses: docker://github/super-linter:v3
+        env:
+          # super-linter runs golangci-lint in a stupid way, just disable it
+          # and run it separately below
+          VALIDATE_GO: false
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   golangci-lint:
     name: golangci-lint on push
@@ -25,9 +31,9 @@ jobs:
         run: |
           go get -v -t -d ./...
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v1
+        uses: golangci/golangci-lint-action@v2
         with:
           # Required: the version of golangci-lint is required and must be
           # specified without patch version: we always use the latest patch
           # version.
-          version: v1.27
+          version: v1.30
