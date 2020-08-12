@@ -30,7 +30,7 @@ var workspacesVariablesCmd = &cobra.Command{
 	Use:   "variables",
 	Short: "Work with workspace variables",
 	Long: `Parent command for manipulating workspace variables. This doesn't do anything by itself. 
-	Everything is done via subcommands.`,
+Everything is done via subcommands.`,
 }
 
 func init() {

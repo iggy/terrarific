@@ -43,6 +43,22 @@ it does exist, just update it to match the args.`,
 		if err != nil {
 			log.Fatalln("can't get env flag(s)", err)
 		}
+		versFlag, err := cmd.Flags().GetString("version")
+		if err != nil {
+			log.Fatalln("failed to get version flag", err)
+		}
+		autoApplyFlag, err := cmd.Flags().GetBool("autoapply")
+		if err != nil {
+			log.Fatalln("failed to get autoapply flag", err)
+		}
+		remoteFlag, err := cmd.Flags().GetBool("remote")
+		if err != nil {
+			log.Fatalln("failed to get remote flag", err)
+		}
+		workDirFlag, err := cmd.Flags().GetString("workingdir")
+		if err != nil {
+			log.Fatalln("failed to get workdir flag", err)
+		}
 
 		// Check if workspace exists already
 		w, err := client.Workspaces.Read(ctx, organization, workspace)
@@ -50,9 +66,13 @@ it does exist, just update it to match the args.`,
 			log.Printf("Workspace %s doesn't exist. Creating (%q)", workspace, err)
 
 			w, err = client.Workspaces.Create(ctx, organization, tfe.WorkspaceCreateOptions{
-				Name:             tfe.String(workspace),
-				AutoApply:        tfe.Bool(false),
-				TerraformVersion: tfe.String("latest"),
+				AutoApply:           tfe.Bool(autoApplyFlag),
+				FileTriggersEnabled: tfe.Bool(false),
+				Name:                tfe.String(workspace),
+				Operations:          tfe.Bool(remoteFlag),
+				TerraformVersion:    tfe.String(versFlag),
+				TriggerPrefixes:     []string{},
+				WorkingDirectory:    tfe.String(workDirFlag),
 			})
 			if err != nil {
 				log.Fatal("failed creating workspace: ", err, w)
@@ -63,9 +83,10 @@ it does exist, just update it to match the args.`,
 				envkv := strings.Split(envFlags[ev], "=")
 				log.Printf("Creating variable on workspace %s: %q\n", workspace, envkv)
 				v, err := client.Variables.Create(ctx, w.ID, tfe.VariableCreateOptions{
-					Key:      &envkv[0],
-					Value:    &envkv[1],
-					Category: tfe.Category(tfe.CategoryEnv),
+					Key:         &envkv[0],
+					Value:       &envkv[1],
+					Description: tfe.String("Set by terrarific"),
+					Category:    tfe.Category(tfe.CategoryEnv),
 				})
 				if err != nil {
 					log.Fatal("failed setting ", err, v)
@@ -78,7 +99,7 @@ it does exist, just update it to match the args.`,
 			// Update the workspace
 			w, err = client.Workspaces.Update(ctx, organization, workspace, tfe.WorkspaceUpdateOptions{
 				AutoApply:        tfe.Bool(false),
-				TerraformVersion: tfe.String("latest"),
+				TerraformVersion: tfe.String(versFlag),
 			})
 			if err != nil {
 				log.Fatal("failed updating workspace attrs (AutoApply|TerraformVersion): ", err)
@@ -127,13 +148,17 @@ it does exist, just update it to match the args.`,
 				}
 			}
 		}
-
 	},
 }
 
 func init() {
 	workspacesCmd.AddCommand(workspacesEnsureCmd)
 
+	workspacesEnsureCmd.Flags().Bool("autoapply", false, "Whether to automatically apply after a successful plan")
 	workspacesEnsureCmd.Flags().StringArrayP("env", "e", []string{}, "Environment variables to set on the workspace. Can be passed multiple times. (-e KEY=Value)")
+	workspacesEnsureCmd.Flags().StringP("version", "v", "latest", "Version of terraform to run in the terraform cloud runners (ex. latest, 0.12.29, 0.11.14")
+	workspacesEnsureCmd.Flags().Bool("remote", true, "Whether to run commands in terraform cloud runners (remote) or locally on a workstation")
+	workspacesEnsureCmd.Flags().String("workingdir", "", "Directory to run terraform commands in")
+
 	// workspacesEnsureCmd.Flags().StringArrayP("tfvar", "t", []string{}, "Terraform variables to set on the workspace. Can be passed multiple times. (-t KEY=Value)")
 }
