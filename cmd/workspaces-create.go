@@ -33,10 +33,16 @@ var workspacesCreateCmd = &cobra.Command{
 	Short: "Create a new workspace",
 	Long:  `Create a workspace and set it up according to requested arguments`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("workspacesCreate called")
+		fmt.Println("workspaces create not implemented yet")
 	},
 }
 
 func init() {
 	workspacesCmd.AddCommand(workspacesCreateCmd)
+
+	workspacesCreateCmd.Flags().Bool("autoapply", false, "Whether to automatically apply after a successful plan")
+	workspacesCreateCmd.Flags().StringArrayP("env", "e", []string{}, "Environment variables to set on the workspace. Can be passed multiple times. (-e KEY=Value)")
+	workspacesCreateCmd.Flags().StringP("version", "v", "latest", "Version of terraform to run in the terraform cloud runners (ex. latest, 0.12.29, 0.11.14")
+	workspacesCreateCmd.Flags().Bool("remote", true, "Whether to run commands in terraform cloud runners (remote) or locally on a workstation")
+	workspacesCreateCmd.Flags().String("workingdir", "", "Directory to run terraform commands in")
 }
