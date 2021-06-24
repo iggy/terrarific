@@ -59,11 +59,10 @@ to. The fields displayed are Name, Email, Creation Date, Enterprise Plan, and Tw
 			for _, org := range list.Items {
 				fmt.Fprintf(
 					w,
-					"%s\t%s\t%s\t%s\t%t\n",
+					"%s\t%s\t%s\t%t\n",
 					org.Name,
 					org.Email,
 					org.CreatedAt.Format("2006-01-02"),
-					org.EnterprisePlan,
 					org.TwoFactorConformant,
 				)
 			}
