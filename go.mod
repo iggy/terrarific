@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/hashicorp/go-retryablehttp v0.6.6 // indirect
-	github.com/hashicorp/go-tfe v0.18.0
+	github.com/hashicorp/go-tfe v0.19.0
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/viper v1.8.1
