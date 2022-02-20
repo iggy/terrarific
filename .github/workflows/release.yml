@@ -1,17 +1,15 @@
 ---
 name: Build-Release
-'on':
+"on":
   push:
     tags:
       - v*
 
 jobs:
-
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
-
       - name: Set up Go 1.14
         uses: actions/setup-go@v2
         with:
