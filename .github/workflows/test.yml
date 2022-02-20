@@ -3,37 +3,16 @@ name: Tests
 'on': [push]
 
 jobs:
-  super-lint:
-    name: GitHub Super Linter
+  mega-lint:
+    name: Mega Linter
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.4.0
-      - name: Super Linter
-        # This makes it pull from github's docker repo according to a note in
-        # the README.md
-        uses: docker://github/super-linter:v3
+      - name: Mega Linter
+        uses: megalinter/megalinter/flavors/go@v5
         env:
-          # super-linter runs golangci-lint in a stupid way, just disable it
-          # and run it separately below
-          VALIDATE_GO: false
+          # VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }} # Validates all source when push on main, else just the git diff with main. Override with true if you always want to lint all sources
+          VALIDATE_ALL_CODEBASE: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  golangci-lint:
-    name: golangci-lint on push
-    runs-on: ubuntu-latest
-    steps:
-
-      - uses: actions/checkout@v2.4.0
-      - uses: actions/setup-go@v2
-        with:
-          go-version: 1.16
-      - name: Get dependencies
-        run: |
-          go get -v -t -d ./...
-      - name: golangci-lint
-        uses: golangci/golangci-lint-action@v2.5.2
-        with:
-          # Required: the version of golangci-lint is required and must be
-          # specified without patch version: we always use the latest patch
-          # version.
-          version: v1.41
+          DISABLE_LINTERS: SPELL_CSPELL
+          GO_GOLANGCI_LINT_CLI_LINT_MODE: project
