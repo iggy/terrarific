@@ -82,13 +82,13 @@ it does exist, just update it to match the args.`,
 			for ev := range envFlags {
 				envkv := strings.Split(envFlags[ev], "=")
 				log.Printf("Creating variable on workspace %s: %q\n", workspace, envkv)
-				v, err := client.Variables.Create(ctx, w.ID, tfe.VariableCreateOptions{
+				v, nerr := client.Variables.Create(ctx, w.ID, tfe.VariableCreateOptions{
 					Key:         &envkv[0],
 					Value:       &envkv[1],
 					Description: tfe.String("Set by terrarific"),
 					Category:    tfe.Category(tfe.CategoryEnv),
 				})
-				if err != nil {
+				if nerr != nil {
 					log.Fatal("failed setting ", err, v)
 				}
 			}
