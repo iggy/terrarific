@@ -7,7 +7,7 @@ jobs:
     name: Mega Linter
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3
       - name: Mega Linter
         uses: megalinter/megalinter/flavors/go@v5
         env:
