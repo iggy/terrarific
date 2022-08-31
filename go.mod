@@ -3,7 +3,7 @@ module github.com/iggy/terrarific
 go 1.13
 
 require (
-	github.com/hashicorp/go-tfe v0.26.0
+	github.com/hashicorp/go-tfe v1.9.0
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/viper v1.12.0
