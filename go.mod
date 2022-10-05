@@ -1,6 +1,6 @@
 module github.com/iggy/terrarific
 
-go 1.19
+go 1.18
 
 require (
 	github.com/hashicorp/go-tfe v0.26.0
