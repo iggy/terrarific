@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/hashicorp/go-tfe v0.26.0
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/spf13/cobra v1.5.0
+	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.13.0
 )
 
