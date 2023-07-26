@@ -5,6 +5,8 @@ name: Build-Release
     tags:
       - v*
 
+permissions: read-all
+
 jobs:
   build:
     name: Build
