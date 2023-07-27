@@ -112,7 +112,7 @@ it does exist, just update it to match the args.`,
 				value := envkv[1]
 				foundEnvInVarList := false
 
-				varList, err := client.Variables.List(ctx, w.ID, tfe.VariableListOptions{})
+				varList, err := client.Variables.List(ctx, w.ID, &tfe.VariableListOptions{})
 				if err != nil {
 					log.Fatal("Failed getting list of variables", err)
 				}

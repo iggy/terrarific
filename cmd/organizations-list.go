@@ -46,7 +46,7 @@ to. The fields displayed are Name, Email, Creation Date, Enterprise Plan, and Tw
 		fmt.Fprintln(w, "Name\tEmail\tCreated\tPlan\tTwoFactor")
 
 		for {
-			opts := tfe.OrganizationListOptions{
+			opts := &tfe.OrganizationListOptions{
 				ListOptions: tfe.ListOptions{
 					PageNumber: pgNum,
 					PageSize:   pgSize,
