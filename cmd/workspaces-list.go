@@ -51,14 +51,14 @@ var workspacesListCmd = &cobra.Command{
 		fmt.Fprintln(w, "Name\tID\tCreated\tVersion\tLocked")
 
 		for {
-			opts := tfe.WorkspaceListOptions{
+			opts := &tfe.WorkspaceListOptions{
 				ListOptions: tfe.ListOptions{
 					PageNumber: pgNum,
 					PageSize:   pgSize,
 				},
 			}
 			if search != "" {
-				opts.Search = &search
+				opts.Search = search
 			}
 			list, err := client.Workspaces.List(ctx, args[0], opts)
 			if err != nil {
