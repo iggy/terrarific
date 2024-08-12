@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/hashicorp/go-tfe v1.50.0
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/spf13/cobra v1.8.0
+	github.com/spf13/cobra v1.8.1
 	github.com/spf13/viper v1.18.2
 )
 
